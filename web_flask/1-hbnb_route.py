@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""flask script to display greeting message”"""
+"""flask script to display greeting message"""
 
 from flask import Flask
 
