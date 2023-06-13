@@ -1,57 +1,54 @@
 #!/usr/bin/python3
-"""flask script that displays greeting message"""
+"""App instance of a Flash Web Application"""
 from flask import Flask, render_template
-
 app = Flask(__name__)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 
-@app.route("/", strict_slashes=False)
-def index():
-    """a function to return hello HBNB"""
-    return "Hello HBNB!"
+@app.route('/', strict_slashes=False)
+def hello_hbnb():
+    """ Prints a Message when / is called """
+    return 'Hello HBNB!'
 
 
-@app.route("/hbnb", strict_slashes=False)
-def index_hbnb():
-    """a function to return HBNB"""
-    return "HBNB"
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """ Prints a Message when /hbnb is called """
+    return 'HBNB'
 
 
-@app.route("/c/<text>", strict_slashes=False)
-def index_c(text):
-    """a function to return C is fun"""
-    return 'C ' + text.replace('_', ' ')
+@app.route('/c/<text>', strict_slashes=False)
+def c_is_fun(text):
+    """ Prints a Message when /c is called """
+    return "C " + text.replace('_', ' ')
 
 
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text='is cool'):
-    """display “Python ”, followed by the value of the text variable"""
-    return 'Python ' + text.replace('_', ' ')
+def python_is_cool(text='is_cool'):
+    """ Prints a Message when /python is called """
+    return "Python " + text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def a_number(n):
-    """displays only when a number is passed on the url"""
-    return "{} is a number".format(n)
+def is_n_number(n):
+    """ Prints a Message when /number is called only if n is an int"""
+    return "{:d} is a number".format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def render_html(n):
-    """renders html page with a variable"""
-    return render_template("5-number.html", p=n)
+def number_template(n):
+    """ display a HTML page only if n is an integer """
+    return render_template('5-number.html', value=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def render_html_variables(n):
-    """renders html page with variables"""
-    if n % 2 == 0:
-        is_odd_or_even = "even"
-    else:
-        is_odd_or_even = "odd"
-
-    return render_template("6-number_odd_or_even.html", p=n, m=is_odd_or_even)
+def odd_or_even(n):
+    """ display a HTML page only if n is an integer """
+    return render_template('6-number_odd_or_even.html', value=n)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    """ Main Function """
+    app.run(host='0.0.0.0', port=5000)

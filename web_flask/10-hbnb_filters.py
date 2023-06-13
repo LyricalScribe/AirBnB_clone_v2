@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-"""Initiates a Flask web application"""
+"""App instance of a Flash Web App"""
 from models import storage
-from flask import Flask
-from flask import render_template
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from os import environ
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route("/hbnb_filters", strict_slashes=False)
 def hbnb_filter_state_amenity():
-    """renders the main HBnB filters HTML page."""
+    """Displayes the main HBnB filters HTML page"""
     states = storage.all("State")
     amenities = storage.all("Amenity")
     return render_template("10-hbnb_filters.html",
@@ -18,7 +21,7 @@ def hbnb_filter_state_amenity():
 
 @app.teardown_appcontext
 def teardown(exception=None):
-    """deletes the current SQLAlchemy session."""
+    """Removes current SQLAlchemy session"""
     storage.close()
 
 
