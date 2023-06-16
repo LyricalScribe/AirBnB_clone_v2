@@ -28,7 +28,7 @@ class FileStorage:
         """ deletes an object from storage dictionary """
         if (obj):
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
-            del FileStorage.__objects[key]
+            FileStorage.__objects.pop(key)
             self.save()
 
     def save(self):
